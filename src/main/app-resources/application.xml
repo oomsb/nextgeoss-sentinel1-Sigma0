@@ -1,17 +1,12 @@
 <?xml version="1.0" encoding="us-ascii"?>
 <application xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="application">
   <jobTemplates>
-    <jobTemplate id="expression">
-	       <streamingExecutable>/application/expression/run</streamingExecutable>
-	       <defaultParameters>           
-	           <parameter id="startdate" title="Start date" abstract="Start date of the TOI" type="opensearch" scope="runtime" target="time:start">2019-01-01</parameter>
-	           <parameter id="enddate" title="End date" abstract="End date of the TOI" type="opensearch" scope="runtime" target="time:end">2019-01-01</parameter>
-	           <parameter id="qbbox"  title="Bounding Box" abstract="The bounding box parameter" type="opensearch" scope="runtime" target="geo:box">2.36,49.4,6.6,51.6</parameter>
-	       </defaultParameters>
-    </jobTemplate>
     <jobTemplate id="snap">
       <streamingExecutable>/application/snap/run</streamingExecutable>
       <defaultParameters>
+	            <parameter id="startdate" title="Start date" abstract="Start date of the TOI" type="opensearch" scope="runtime" target="time:start">2019-03-03T05:58:13.1720000Z</parameter>
+	            <parameter id="enddate" title="End date" abstract="End date of the TOI" type="opensearch" scope="runtime" target="time:end">2019-03-03T05:58:30.1720000Z</parameter>
+	            <parameter id="qbbox"  title="Bounding Box" abstract="The bounding box parameter" type="opensearch" scope="runtime" target="geo:box">1.13,47.4,6.6,51.6</parameter>
       </defaultParameters>
       <defaultJobconf>
         <property id="mapred.task.timeout">99000000000</property>
@@ -20,18 +15,10 @@
   </jobTemplates>
   <workflow id="nextgeoss_S1_SIGMA0" title="Sentinel-1 backscatter" abstract="Sentinel-1 backscatter">
   <workflowVersion>1.0</workflowVersion>
-    <node id="node_expression">       
-	  <job id="expression"></job>     
-	  <sources>
-		<source refid="cas:series">https://catalog.terradue.com/sentinel1/series/GRD/description"</source>
-	  </sources>
-	  <parameters>          
-	  </parameters>
-    </node>
     <node id="snap">
       <job id="snap"/>
       <sources>
-	     <source refid="wf:node">node_expression</source>
+		<source refid="cas:series">https://catalog.terradue.com/sentinel1/series/GRDH/description</source>
       </sources>
     </node>
   </workflow>

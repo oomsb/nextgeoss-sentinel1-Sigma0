@@ -92,6 +92,8 @@ function main() {
 
   out="${TMPDIR}/${identifier}_Sigma0"
 
+  echo "-I- infile : $local_s1" 
+  echo "-I- outfile : $out" 
   ciop-log "INFO" "(3 of ${num_steps}) Invoke SNAP GPT"
 
 #  properties_file=${out}.tgz.properties
@@ -102,7 +104,7 @@ function main() {
 #  echo "geometry=$wkt" >> ${properties_file}
   
 #  ciop-publish -m ${properties_file} || return ${ERR_PUBLISH}
-  gpt -x -c "2048M" \
+  gpt -x -c "2048M" -J-Xmx20G \
       ${SNAP_REQUEST} \
       -Pin=${local_s1} \
       -Pout=${out} 1>&2 || return ${ERR_SNAP} 
